@@ -1,12 +1,20 @@
+import { RouterModule, Routes } from '@angular/router';
+
+//import { DonationComponent } from './donation/donation.component';
+import { LandPageComponent } from './land-page/land-page.component';
+//import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-
+const routes: Routes = [
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'inicio', component: LandPageComponent },
+//  { path: 'login', component: LoginComponent },
+ // { path: 'doacao', component: DonationComponent },
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  //imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

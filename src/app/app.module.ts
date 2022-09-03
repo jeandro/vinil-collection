@@ -5,13 +5,15 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { LandPageComponent } from './land-page/land-page.component';
+//import { LandPageComponent } from './land-page/land-page.component';
 
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, FooterComponent],
+  declarations: [AppComponent, MenuComponent, FooterComponent, LandPageComponent],
   imports:  [RouterModule, BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
