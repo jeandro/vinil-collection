@@ -16,6 +16,8 @@ import { MenuComponent } from './menu/menu.component';
 import { NgModule } from '@angular/core';
 import { TotalUsersComponent } from './user/total-users/total-users.component';
 import { UserComponent } from './user/user.component';
+import { CityComponent } from './city/city.component';
+import { GravadoraComponent } from './gravadora/gravadora.component';
 
 // import { DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@angular/core';
 // import ptBr from '@angular/common/locales/pt';
@@ -34,7 +36,8 @@ import { UserComponent } from './user/user.component';
     UserComponent,
     TotalUsersComponent,
     CpfPipe,
-
+    CityComponent,
+    GravadoraComponent,
   ],
   imports: [
     BrowserModule,
