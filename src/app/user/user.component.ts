@@ -1,11 +1,11 @@
+import { WebStorageUtil } from 'src/app/util/web-storage-util';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Constants } from 'src/app/util/constants';
+import { Constants } from '../util/constants';
 import { NgForm } from '@angular/forms';
 import { Shared } from '../util/shared';
 import { User } from './../model/user';
 import { UserStorageService } from './user-storage.service';
-import { WebStorageUtil } from 'src/app/util/web-storage-util';
 
 @Component({
   selector: 'app-user',
