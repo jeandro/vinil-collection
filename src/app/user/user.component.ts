@@ -1,17 +1,16 @@
-import { WebStorageUtil } from 'src/app/util/web-storage-util';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Constants } from '../util/constants';
+import { Constants } from 'src/app/util/constants';
 import { NgForm } from '@angular/forms';
 import { Shared } from '../util/shared';
 import { User } from './../model/user';
-import { UserStorageService } from './user-storage.service';
+import { UserService } from './user.service';
+import { WebStorageUtil } from 'src/app/util/web-storage-util';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
-  providers: [UserStorageService],
 })
 export class UserComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
@@ -26,7 +25,7 @@ export class UserComponent implements OnInit {
   isSuccess!: boolean;
   message!: string;
 
-  constructor(private userService: UserStorageService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     Shared.initializeWebStorage();
@@ -44,13 +43,9 @@ export class UserComponent implements OnInit {
     this.isShowMessage = true;
     this.isSuccess = true;
     this.message = 'Cadastro realizado com sucesso!';
-
     this.form.reset();
     this.user = new User('', '');
-
     this.users = this.userService.getUsers();
-
-    this.userService.notifyTotalUsers();
   }
 
   /**
@@ -80,6 +75,5 @@ export class UserComponent implements OnInit {
       this.message = 'Opps! O item não pode ser removido!';
     }
     this.users = this.userService.getUsers();
-    this.userService.notifyTotalUsers();
   }
 }
