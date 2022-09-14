@@ -1,6 +1,6 @@
 import { GravadoraComponent } from './gravadora/gravadora.component';
 import { RouterModule, Routes } from '@angular/router';
-
+import { AuthenticationGuard } from './util/authentication.guard';
 //import { DonationComponent } from './donation/donation.component';
 import { LandPageComponent } from './land-page/land-page.component';
 //import { LoginComponent } from './login/login.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'a/usuario',
     component: UserComponent,
-   // pathMatch: 'full'
+   // canActivate: [AuthenticationGuard],
   },
 
  {
