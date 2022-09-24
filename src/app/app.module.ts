@@ -18,12 +18,11 @@ import { NgModule } from '@angular/core';
 import { UserComponent } from './user/user.component';
 import { CityComponent } from './city/city.component';
 import { GravadoraComponent } from './gravadora/gravadora.component';
-
 // import { DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@angular/core';
-// import ptBr from '@angular/common/locales/pt';
-// import { registerLocaleData } from '@angular/common';
+ import ptBr from '@angular/common/locales/pt';
+ import { registerLocaleData } from '@angular/common';
 
-//registerLocaleData(ptBr);
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -35,6 +34,7 @@ import { GravadoraComponent } from './gravadora/gravadora.component';
   //  LoginComponent,
     UserComponent,
  //   TotalUsersComponent,
+
     CpfPipe,
     CityComponent,
     GravadoraComponent,
@@ -46,7 +46,7 @@ import { GravadoraComponent } from './gravadora/gravadora.component';
     FormsModule,
     NgxMaskModule.forRoot(),
   ],
-  //providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

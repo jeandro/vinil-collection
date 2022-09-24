@@ -30,6 +30,14 @@
         <div class="red-text" [hidden]="name.valid || name.untouched">
           Por favor, informe o seu nome completo.
         </div>
+        <!-- <div class="red-text" *ngIf="name.errors?.required && name.touched">
+          Por favor, o nome completo é obrigatório.
+        </div> -->
+        <span
+          class="helper-text"
+          data-error="O campo é inválido"
+          data-success="Ok!"
+        ></span>
       </div>
 
       <div class="input-field col s12">
@@ -135,7 +143,6 @@
         <th>Nome Completo</th>
         <th>Nome de usuário</th>
         <th>CPF</th>
-
         <th></th>
       </tr>
     </thead>
