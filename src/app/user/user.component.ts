@@ -1,3 +1,4 @@
+import { UserPromiseService } from './../services/user-promise.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Constants } from 'src/app/util/constants';
