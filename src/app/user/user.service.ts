@@ -1,65 +1,65 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ErrorUtil } from './../util/error-util';
+import { Constants } from 'src/app/util/constants';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { RoutesAPI } from './../util/routes-api';
-import { Transaction } from './../model/transaction';
 import { User } from './../model/user';
+import { WebStorageUtil } from 'src/app/util/web-storage-util';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserService {
-  constructor(private httpClient: HttpClient) {}
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
-
-  getByUsername(username: string): Observable<User[]> {
-    const query: HttpParams = new HttpParams().set('username', username);
-    const options = username ? { params: query } : {};
-
-    return this.httpClient.get<User[]>(`${RoutesAPI.USERS}`, options).pipe(
-      //map((users: User[])=>users[0]),
-      catchError(ErrorUtil.handleError)
-    );
+  users!: User[];
+  private userSource!: BehaviorSubject<number>;
+  constructor() {
+    this.users = WebStorageUtil.get(Constants.USERS_KEY);
+    this.userSource = new BehaviorSubject<number>(this.users.length);
   }
 
-  /**
-   * Lista as transações de um dado usuário.
-   * @param id
-   * @returns
-   */
-  listTransactionsByUser(id: string): Observable<Transaction[]> {
-    return this.httpClient
-      .get<Transaction[]>(`${RoutesAPI.TRANSACTIONS}/${id}/transactions`)
-      .pipe(catchError(ErrorUtil.handleError));
+  save(user: User) {
+    this.users = WebStorageUtil.get(Constants.USERS_KEY);
+    this.users.push(user);
+    WebStorageUtil.set(Constants.USERS_KEY, this.users);
   }
 
-  save(user: User): Observable<User> {
-    return this.httpClient.post<User>(
-      `${RoutesAPI.USERS}`,
-      user,
-      this.httpOptions
-    );
+  update(user: User) {
+    this.users = WebStorageUtil.get(Constants.USERS_KEY);
+    this.delete(user.username);
+    this.save(user);
   }
 
-  patch(user: User): Observable<User> {
-    return this.httpClient.patch<User>(
-      `${RoutesAPI.USERS}/${user.id}`,
-      user,
-      this.httpOptions
-    );
+  delete(username: string): boolean {
+    this.users = WebStorageUtil.get(Constants.USERS_KEY);
+    this.users = this.users.filter((u) => {
+      return u.username?.valueOf() != username?.valueOf();
+    });
+
+    WebStorageUtil.set(Constants.USERS_KEY, this.users);
+    return true;
   }
 
-  update(user: User): Observable<User> {
-    return this.httpClient.put<User>(
-      `${RoutesAPI.USERS}/${user.id}`,
-      user,
-      this.httpOptions
-    );
+  isExist(value: string): boolean {
+    this.users = WebStorageUtil.get(Constants.USERS_KEY);
+    for (let u of this.users) {
+      if (u.username?.valueOf() == value?.valueOf()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getUsers(): User[] {
+    this.users = WebStorageUtil.get(Constants.USERS_KEY);
+    return this.users;
+  }
+
+  notifyTotalUsers() {
+    this.userSource.next(this.getUsers()?.length);
+    // if (this.getUsers()?.length > 1) {
+    //   this.userSource.complete();
+    // }
+  }
+
+  asObservable(): Observable<number> {
+    return this.userSource;
+    //return this.userSource.asObservable()
   }
 }
