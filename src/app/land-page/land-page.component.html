@@ -20,15 +20,15 @@
 <!-- container -->
 <div class="container about">
   <!-- painel serviços  -->
-  <div id="painel-servicos" >
+  <div id="painel-servicos" [hidden]="this.isHidePanel">
     <h5>Serviços</h5>
     <hr />
     <div class="row">
       <!-- serviços -->
       <div class="col s12 m6">
-        <a href="#">
+        <a href="/cidade">
           <div class="card-panel blue accent-4 center my-card-button">
-            <span class="white-text flow-text"> Cadastro </span>
+            <span class="white-text flow-text"> Cidade </span>
           </div>
         </a>
       </div>
