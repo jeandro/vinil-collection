@@ -1,17 +1,15 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-
 import { Constants } from 'src/app/util/constants';
 import { Injectable } from '@angular/core';
 import { User } from './../model/user';
 import { WebStorageUtil } from 'src/app/util/web-storage-util';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
   users!: User[];
-  private userSource!: BehaviorSubject<number>;
   constructor() {
     this.users = WebStorageUtil.get(Constants.USERS_KEY);
-    this.userSource = new BehaviorSubject<number>(this.users.length);
   }
 
   save(user: User) {
@@ -49,17 +47,5 @@ export class UserService {
   getUsers(): User[] {
     this.users = WebStorageUtil.get(Constants.USERS_KEY);
     return this.users;
-  }
-
-  notifyTotalUsers() {
-    this.userSource.next(this.getUsers()?.length);
-    // if (this.getUsers()?.length > 1) {
-    //   this.userSource.complete();
-    // }
-  }
-
-  asObservable(): Observable<number> {
-   // return this.userSource;
-    return this.userSource.asObservable()
   }
 }
