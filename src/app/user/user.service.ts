@@ -59,7 +59,7 @@ export class UserService {
   }
 
   asObservable(): Observable<number> {
-    return this.userSource;
-    //return this.userSource.asObservable()
+   // return this.userSource;
+    return this.userSource.asObservable()
   }
 }
